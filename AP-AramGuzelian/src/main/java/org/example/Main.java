@@ -1,31 +1,6 @@
 /*
 Java - Ejercitación inicial.
-1. Crear las variables correspondientes para leer tu nombre,
-apellido y edad e imprimirlos por consola en una oración.
-2. Realizar un pequeño programa que permita ingresar 3 números
-e imprimir por consola cuál es el mayor.
-3. Realizar un pequeño programa que permita el ingreso de un
-número e imprimir por consola su paridad.
-4. Crear el código correspondiente que permita ingresar 2 cadenas
-de caracteres e imprima por consola si son iguales o no.
-5. Realizar un pequeño programa que permita el ingreso de
-números, almacenarlos en una colección hasta ingresar un 0.
-6. Crear una función que imprima un mensaje de bienvenida en la
-consola.
-7. Crear una función que reciba un número entero y devuelva si es
-par o impar en forma de texto.
-8. Crear una función que reciba un número y devuelva si el mismo
-es primo o no.
-9. Crear una función que reciba una colección de números y
-devuelva la suma de los números impares.
-10. Crear una función que reciba una colección de números e
-imprima los números pares y la suma de los números primos.
-11. Crear una función que imprima por consola un pequeño
-menú con las opciones básicas de una calculadora agregando
-la opción 0 para salir del mismo.
-12. Crear otra función que ocupe la del punto anterior para poder
-crear una pequeña calculadora usando switch. Tener en cuenta
-el caso de la división por 0.
+
 13. Crear el algoritmo necesario para poder gestionar el ingreso
 a un boliche. El mismo deberá contar con un pequeño menú con
 las siguientes opciones:
@@ -56,16 +31,27 @@ Aram Guzelian - AP + Mindhub - Backend JAVA
 
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        ArrayList<Integer> coleccion = new ArrayList<>(Arrays.asList(5, 6, 7, 8, 9, 24534, 55, 23, 7, 1, 4, 8));
         // usuario();
         // numeroMayor();
         // numeroPar();
         // textosIguales();
+        // coleccionNumerica();
+        // bienvenida();
+        // System.out.println(esPrimo(50));  - FALSE
+        // System.out.println(esPrimo(7));   - TRUE
+        // System.out.println(sumarNumerosImpares(coleccion));
+        // sumaParesPrimos(coleccion);
+        calculadoraConsola();
     }
     public static void usuario(){
         // Ejercicio 1.
@@ -106,7 +92,7 @@ public class Main {
         return numero % 2 == 0;
     }
     public static void numeroPar(){
-        //Ejercicio 3.
+        //Ejercicio 3. y Ejercicio 7.
         System.out.println("Ingresa un numero para comprobar si es Par: ");
         int numero = scanner.nextInt();
 
@@ -131,6 +117,128 @@ public class Main {
         }
     }
     public static void coleccionNumerica(){
-        
+        // Ejercicio 5.
+        ArrayList<Integer> coleccion = new ArrayList<>();
+
+        System.out.println("Cada numero que ingreses, se agregara a la coleccion");
+        System.out.println("Ingrese 0 para salir del bucle y terminar el programa");
+        int numero;
+
+        do {
+            System.out.println("Ingrese un numero: ");
+            numero = scanner.nextInt();
+
+            if (numero != 0){
+                coleccion.add(numero);
+            }
+        } while (numero != 0);
+
+        System.out.println("Los numeros ingresados son: " + coleccion);
+    }
+    public static void bienvenida(){
+        // Ejercicio 6.
+        System.out.println("Bienvenido! - By Aram Guzelian");
+    }
+    public static boolean esPrimo(int numero) {
+        // Ejercicio 8.
+        if (numero == 0 || numero == 1 || numero == 4) {
+            return false;
+        }
+        for (int i = 2; i < numero / 2; i++) {
+            if (numero % i == 0)
+                return false;
+        }
+        return true;
+    }
+    public static Integer sumarNumerosImpares(Collection<Integer> coleccionNumerica){
+        // Ejercicio 9.
+
+        int sumatoriaImpares = 0;
+
+        for (Integer numeros : coleccionNumerica){
+            if (!esPar(numeros)){
+                sumatoriaImpares += numeros;
+            }
+        }
+        return sumatoriaImpares;
+    }
+    public static void sumaParesPrimos(Collection<Integer> coleccionNumerica){
+        // Ejercicio 10.
+        ArrayList<Integer> numerosPares = new ArrayList<>();
+        int sumatoriaNumerosPrimos = 0;
+
+        for (Integer numeros : coleccionNumerica){
+            if (esPar(numeros)){
+                numerosPares.add(numeros);
+            }
+            if (esPrimo(numeros)){
+                sumatoriaNumerosPrimos += numeros;
+            }
+        }
+        System.out.println("Los numeros Pares son: " + numerosPares);
+        System.out.println("La sumatoria de numeros primos es " + sumatoriaNumerosPrimos);
+    }
+    public static void calculadoraConsola(){
+        // Ejercicio 11.
+        // Ejercicio 12.
+
+        int opcion = 5;
+        int num1 = 0;
+        int num2 = 0;
+
+        System.out.println("Calculadora con las 4 operaciones basicas:");
+        System.out.println("-----------------------------------");
+        System.out.println("-----------------------------------");
+
+        while (opcion != 0){
+
+            System.out.println("1 - Suma");
+            System.out.println("2 - Resta");
+            System.out.println("3 - Multiplicacion");
+            System.out.println("4 - Division");
+            System.out.println("0 - Salir / Exit");
+            System.out.println("Elige una opcion: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion){
+                case 1:
+                    System.out.println("VAS A SUMAR");
+                    System.out.println("Primer Numero");
+                    num1 = scanner.nextInt();
+                    System.out.println("Segundo Numero");
+                    num2 = scanner.nextInt();
+                    System.out.println("RESULTADO DE LA SUMA " + (num1 + num2));
+                    break;
+                case 2:
+                    System.out.println("VAS A RESTAR");
+                    System.out.println("Primer Numero");
+                    num1 = scanner.nextInt();
+                    System.out.println("Segundo Numero");
+                    num2 = scanner.nextInt();
+                    System.out.println("RESULTADO DE LA RESTA " + (num1 - num2));
+                    break;
+                case 3:
+                    System.out.println("VAS A MULTIPLICAR");
+                    System.out.println("Primer Numero");
+                    num1 = scanner.nextInt();
+                    System.out.println("Segundo Numero");
+                    num2 = scanner.nextInt();
+                    System.out.println("RESULTADO DE LA MULTIPLICACION " + (num1 * num2));
+                    break;
+                case 4:
+                    System.out.println("VAS A DIVIDIR");
+                    System.out.println("Primer Numero");
+                    num1 = scanner.nextInt();
+                    System.out.println("Segundo Numero");
+                    num2 = scanner.nextInt();
+                    System.out.println("RESULTADO DE LA DIVISION " + (num1 / num2));
+                    break;
+                case 0:
+                    System.out.println("Adios... Vuelva Prontosss");
+                    break;
+                default:
+                    System.out.println("OPCION INCORRECTA");
+            }
+        }
     }
 }
